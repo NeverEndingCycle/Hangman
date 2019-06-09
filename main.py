@@ -1,7 +1,6 @@
-from welcomescreen import WelcomeScreen as WS
-from word import Word
-
+from hangman import *
 
 if __name__ == '__main__':
-    WS.show()
-    Word.get()
+    HangMan.show_welcome_screen()
+    HangMan.start()
+    HangMan.fetch_word()
