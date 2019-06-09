@@ -1,6 +1,6 @@
-from hangman import *
+import hangman
 
 if __name__ == '__main__':
-    HangMan.show_welcome_screen()
-    HangMan.start()
-    HangMan.fetch_word()
+    hangman.show_welcome_screen()
+    hangman.start()
+    hangman.fetch_word()
