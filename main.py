@@ -1,8 +1,12 @@
-import hangman
+from hangman import *
 
 if __name__ == '__main__':
-    welcome = False
-    if welcome == True:
-        hangman.show_welcome_screen()
-    hangman.start()
-    hangman.fetch_word()
+    startup = False
+    if startup == True:
+        startup.show_welcome_screen()
+        startup.start()
+
+    while True:
+        difficulty = main.get_dif()
+        word = main.fetch_word(difficulty)
+        print(word)
