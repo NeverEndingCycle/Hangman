@@ -18,12 +18,11 @@ class startup:
             slp(.5)
         slp(1.5)
         sys('cls')
-    def start():
         print('Welcome to hangman. By: N.E.C and Decoy.', end='\n\n>>> Press enter to continue.')
         pause = input()
         sys('cls')
 
-class main:
+class function:
     def get_dif():
         print('Please choose your difficulty.\n\n', end='')
         slp(.5)
@@ -70,4 +69,53 @@ class main:
                 word = ''.join(word.split())
                 return word
 
-    
+    def picture(guesses):
+        guesses = str(guesses)
+        with open(f'hangman_data/hangman({guesses})', 'r') as file:
+            picture = file.readlines()
+        return picture
+
+    def get_length(word):
+        length = len(word)
+        letter_length = ''
+
+        while length != 0:
+            length -= 1
+            letter_length += '_'
+
+        return letter_length
+
+class game:
+    def start(word):
+        guesses = 0
+        score = 0
+
+        while True:
+            for i in function.picture(guesses):
+                print(i)
+
+            print(word)
+            print(function.get_length(word))
+
+            word_list = list(word)
+
+            print(f'\n{score})
+            guess = input('\n\nGuess a letter.\n>>> ')
+
+            if guess in word_list:
+                valid = True
+
+                while valid == True:
+                    try:
+                        word_list.remove(guess)
+                        score += 1
+                    except ValueError:
+                        valid = False
+
+            elif guess == word :
+                print('You win!')
+                return
+            else:
+                guesses += 1
+
+            sys('cls')
