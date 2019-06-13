@@ -69,9 +69,16 @@ class function:
                 word = ''.join(word.split())
                 return word
 
-    def picture(guesses):
-        guesses = str(guesses)
-        with open(f'hangman_data/hangman({guesses})', 'r') as file:
+    def get_globals(word):
+        global char_list, word_print
+        char_list = list(word)
+
+        length = function.get_length(word)
+        word_print = list(length)
+
+    def picture(bad_guesses):
+        bad_guesses = str(bad_guesses)
+        with open(f'hangman_data/hangman({bad_guesses})', 'r') as file:
             picture = file.readlines()
         return picture
 
@@ -85,37 +92,53 @@ class function:
 
         return letter_length
 
+    def add_guess(bad_guesses):
+        bad_guesses += 1
+        return bad_guesses
+
+    def check_guess(word, guess, bad_guesses):
+        letter_length = function.get_length(word)
+        char_index = None
+
+        if guess in char_list:
+            char_index = [i for i in range(len(char_list)) if char_list[i] == guess]
+            for i in char_index:
+                i = int(i)
+                char_list[i] = '-'
+                word_print[i] = guess
+
+        elif guess == word:
+            print('You win!')
+        else:
+            function.add_guess(bad_guesses)
+
+        return bad_guesses, word_print
+
 class game:
     def start(word):
-        guesses = 0
-        score = 0
+        function.get_globals(word)
+        bad_guesses = 0
+        guess = None
+        char_index = None
+        word_print = None
 
         while True:
-            for i in function.picture(guesses):
-                print(i)
+            for pic in function.picture(bad_guesses):
+                print(pic, end='')
 
             print(word)
-            print(function.get_length(word))
 
-            word_list = list(word)
-
-            print(f'\n{score})
-            guess = input('\n\nGuess a letter.\n>>> ')
-
-            if guess in word_list:
-                valid = True
-
-                while valid == True:
-                    try:
-                        word_list.remove(guess)
-                        score += 1
-                    except ValueError:
-                        valid = False
-
-            elif guess == word :
-                print('You win!')
-                return
+            if word_print == None:
+                new_word_print = function.get_length(word)
+                print(f'{new_word_print}')
             else:
-                guesses += 1
+                new_word_print = ''
+                for i in word_print:
+                    new_word_print += i
+                print(f'{new_word_print}')
 
+            guess = input('\n\nGuess a letter or word.\n>>> ')
+            guess = guess.lower()
+
+            bad_guesses, word_print = function.check_guess(word, guess, bad_guesses)
             sys('cls')
