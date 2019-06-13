@@ -1,12 +1,11 @@
 from hangman import *
 
 if __name__ == '__main__':
-    startup = False
-    if startup == True:
-        startup.welcome()
+    cont = True
 
-    while True:
-        difficulty = function.get_dif()
-        word = function.fetch_word(difficulty)
-        game.start(word)
-        exit()
+    startup.welcome()
+
+    while cont == True:
+        difficulty = game.get_dif()
+        word, victory = game.start(difficulty)
+        cont = game.cont(word, victory)
