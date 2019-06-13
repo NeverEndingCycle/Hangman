@@ -12,10 +12,10 @@ for word in word_list:
     if length in range(5, 7):
         easy.append(word)
         print(f'{word} appended to easy_list.')
-    elif length in range(7, 9):
+    elif length in range(7, 10):
         norm.append(word)
         print(f'{word} appended to norm_list.')
-    elif length >= 9:
+    elif length >= 10:
         hard.append(word)
         print(f'{word} appended to hard_list.')
     else:
