@@ -187,7 +187,7 @@ class game:
         while True:
             print("Would you like to play another match?")
             answer = input('\n[Yes, No]\n>>> ')
-            answer.lower()
+            answer = answer.lower()
 
             if answer == 'yes' or  answer == 'no':
                 sys('cls')
